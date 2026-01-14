@@ -1,0 +1,44 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "The Odin Project Battleship game",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development",
+    "serve": "webpack serve --open",
+    "deploy": "npm run build && gh-pages -d dist",
+    "test": "jest",
+    "format": "prettier --write 'src/**/*.{js,css,html}'",
+    "lint": "eslint 'src/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fatratchicken/Battleship.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fatratchicken/Battleship/issues"
+  },
+  "homepage": "https://github.com/Fatratchicken/Battleship#readme",
+  "devDependencies": {
+    "@babel/core": "^7.28.6",
+    "@babel/preset-env": "^7.28.6",
+    "@eslint/js": "^9.39.2",
+    "@types/jest": "^30.0.0",
+    "babel-jest": "^30.2.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.39.2",
+    "gh-pages": "^6.3.0",
+    "globals": "^17.0.0",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.5",
+    "jest": "^30.2.0",
+    "prettier": "^3.7.4",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.3"
+  }
+}
