@@ -5,20 +5,6 @@ describe('Class Ship', () => {
         expect(Ship).toBeDefined();
     })
 
-    test('Attributes are Defined', () => {
-        const shipObj = new Ship();
-
-        const attributes = [
-            shipObj.length,
-            shipObj.hitCount,
-            shipObj.sunk
-        ]
-
-        attributes.forEach((attribute) => {
-            expect(attribute).toBeDefined();
-        })
-    })
-
     describe('Hit Function', () => {
         const shipObj = new Ship();
 

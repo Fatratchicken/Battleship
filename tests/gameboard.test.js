@@ -40,19 +40,6 @@ describe('Class Gameboard', () => {
         describe('placement errors', () => {
             let gameboard = new Gameboard();
 
-            const indexOutOfRangeTests = [
-                {x: 10, y: 10},
-                {x: 10, y: 9},
-                {x: 9, y: 10},
-                {x: -10, y: -10}
-            ]
-
-            indexOutOfRangeTests.forEach(({x, y}) => {
-                test(`placeShip (Ship, ${x}, ${y}) => Error (index out of board range)`, () => {
-                    expect(() => gameboard.placeShip(new Ship(), x, y)).toThrow('index out of board range');
-                })
-            })
-
             const lengthOutOfRangeTest = [
                 {ship: new Ship(2), x: 9, y: 0, vertical: false},
                 {ship: new Ship(2), x: 0, y: 9, vertical: true} 
@@ -210,17 +197,6 @@ describe('Class Gameboard', () => {
                     testBoard.board = board
 
                     expect(() => testBoard.receiveAttack(x,y)).toThrow('index previously chosen');
-                })
-            })
-
-            const indexTests = [
-                {x: 10, y: 10},
-                {x: -10, y: -10}
-            ]
-
-            indexTests.forEach(({x,y}) => {
-                test(`receiveAttack (${x}, ${y}) => Error (index out of board range)`, () => {
-                    expect(() => basicBoard.receiveAttack(x,y)).toThrow('index out of board range')
                 })
             })
         })

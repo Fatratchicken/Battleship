@@ -12,9 +12,6 @@ class Gameboard{
     }
 
     placeShip(ship, x, y, vertical){
-        x = Math.abs(x);
-        y = Math.abs(y);
-
         const length = ship.length;
 
         if (x >  this.width - 1  || y > this.height - 1){
@@ -40,13 +37,6 @@ class Gameboard{
     }
 
     receiveAttack(x,y){
-        x = Math.abs(x);
-        y = Math.abs(y);
-
-        if (x > this.width - 1 || y > this.height - 1){
-            throw new Error('index out of board range');
-        }
-
         const indexValue = this.board[y][x];
 
         if (indexValue === 'X' || indexValue === 'O') throw new Error('index previously chosen');
