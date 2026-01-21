@@ -34,6 +34,38 @@ describe('Class Gameboard', () => {
                 ])
             })
         })
+
+        describe('Gameboard.shipIndexes', () => {
+            const dummyBoard = new Gameboard();
+
+            test(`Gameboard.placeShip(9,9) => shipIndexes = [[9,9]]`, () => {
+                dummyBoard.placeShip(new Ship(1), 9, 9);
+
+                expect(dummyBoard.shipIndexes).toEqual([[9,9]])
+            })
+
+            test('Gameboard.placeShip(0,0), (9,9) => [[0,0], [9,9]]', () => {
+                dummyBoard.placeShip(new Ship(1), 0,0);
+
+                expect(dummyBoard.shipIndexes).toEqual([[9,9], [0,0]]);
+            })
+        })
+
+        describe('Gameboard.hitIndexes', () => {
+            const dummyBoard = new Gameboard();
+
+            test('Gameboard.receiveAttack(0,0) => hitIndexes = [[0,0]]', ( ) => {
+                dummyBoard.receiveAttack(0,0);
+
+                expect(dummyBoard.hitIndexes).toEqual([[0,0]]);
+            })
+
+            test('Gameboard.receiveAttack(9,9), (0,0) => hitIndexes = [[0,0], [9,9]]', () => {
+                dummyBoard.receiveAttack(9,9);
+
+                expect(dummyBoard.hitIndexes).toEqual([[0,0], [9,9]]);
+            })
+        })
     })
 
     describe('placeShip function', () => {
@@ -160,8 +192,6 @@ describe('Class Gameboard', () => {
 
 
     describe('receiveAttack function', () => {
-        const basicBoard = new Gameboard();
-
         describe('index errors', () => {
             const chosenTests = [
                 {x: 0, y: 0, board: [
@@ -282,6 +312,6 @@ describe('Class Gameboard', () => {
                 })
             })
         })
-        
+
     })
 })

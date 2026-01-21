@@ -8,7 +8,13 @@ class Gameboard{
         this.ships = [5,4,3,3,2].map(length => new Ship(length));
         this.shipCount = this.ships.length;
 
+        // for quick overlap checks O(1)
         this.board = Array.from(Array(this.height), () => Array(this.width).fill(null));
+
+        // for quicker board rendring, O(number of hit / ships index) vs O(n^2)
+        this.shipIndexes = [];
+        this.hitIndexes = [];
+
     }
 
     placeShip(ship, x, y, vertical){
@@ -33,7 +39,11 @@ class Gameboard{
             indexes.push(currentIndex);
         }
 
-        indexes.forEach(([y,x]) => this.board[y][x] = ship);
+        indexes.forEach(([y,x]) => {
+            this.board[y][x] = ship;
+        });
+
+        this.shipIndexes.push(...indexes);
     }
 
     receiveAttack(x,y){
@@ -47,9 +57,17 @@ class Gameboard{
             if(indexValue.isSunk()) this.shipCount--;
 
             this.board[y][x] = 'X';
+            this.hitIndexes.push([y,x]);
+
+            return 'hit';
         }
         
-        else this.board[y][x] = 'O';
+        else{
+            this.board[y][x] = 'O';
+            this.hitIndexes.push([y,x]);
+
+            return 'miss';
+        } 
     }
 
     allSunk(){
