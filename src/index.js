@@ -1,5 +1,4 @@
 import "./style.css";
-
 // create players
 
 // place ships - function in seperate module.
