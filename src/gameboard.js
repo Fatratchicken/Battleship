@@ -14,7 +14,6 @@ class Gameboard{
         // for quicker board rendring, O(number of hit / ships index) vs O(n^2)
         this.shipIndexes = [];
         this.hitIndexes = new Map();
-
     }
 
     placeShip(ship, x, y, vertical){
@@ -44,6 +43,30 @@ class Gameboard{
         });
 
         this.shipIndexes.push(indexes);
+    }
+    
+    // brute force 
+    placeRandom(){
+        const boolArr = [true, false];
+
+        this.ships.forEach(ship => {
+            const vertical = boolArr[Math.floor(Math.random() * 2)];
+
+            const max_x = this.width - ship.length;
+            const max_y = this.height - ship.length;
+
+            let placed = false;
+
+            while (!placed){
+                const x = Math.floor(Math.random() * (max_x + 1));
+                const y = Math.floor(Math.random() * (max_y + 1));
+
+                try {
+                    this.placeShip(ship, x, y, vertical);
+                    placed = true;
+                } catch (e) {e}
+            }            
+        })
     }
 
     receiveAttack(x,y){
