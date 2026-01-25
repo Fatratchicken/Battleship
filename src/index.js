@@ -3,20 +3,16 @@ import "./style.css";
 import { Player } from "./player";
 
 // 1. setup:
-const playerContainerId = 'current-board';
-const opponentContainerId = 'opponent-board';
+const player = new Player('human', 'current-board');
+const computer = new Player('computer', 'opponent-board');
 
-const player = new Player('human');
-const computer = new Player('computer');
-
-player.domBoard.initRender(playerContainerId);
-computer.domBoard.initRender(opponentContainerId);
+player.domBoard.initRender();
+computer.domBoard.initRender();
 
 const turnArr = [player, computer];
 let turn = 0;
 
 // placement for ships (Ineffective random, fix later)
-
 while (turn < 2){
     let count = 0;
     let currentPlayer = turnArr[turn];
@@ -25,7 +21,7 @@ while (turn < 2){
         currentPlayer.gameboard.placeShip(ship, 0, count, false);
 
         if (currentPlayer === player){
-            currentPlayer.domBoard.renderShip(playerContainerId);
+            currentPlayer.domBoard.renderShip();
         }
 
         count++;

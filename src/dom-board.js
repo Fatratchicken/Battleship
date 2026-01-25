@@ -1,13 +1,14 @@
 class DomBoard{
-    constructor(gameboard){
+    constructor(gameboard, conatinerId){
         this.board = gameboard;
+        this.conatinerId = conatinerId;
 
         this.width = this.board.width;
         this.height = this.board.height;
     }
 
-    initRender(conatinerId){
-        const htmlContainer = document.getElementById(conatinerId);
+    initRender(){
+        const htmlContainer = document.getElementById(this.conatinerId);
 
         htmlContainer.style.gridTemplate = 'repeat(10, 1fr) / repeat(10, 1fr)';
 
@@ -22,11 +23,11 @@ class DomBoard{
         }
     }
 
-    renderAttack(conatinerId){
+    renderAttack(){
         const index = [...this.board.hitIndexes.keys()].at(-1);
         const value = this.board.hitIndexes.get(index);
 
-        const domTile = document.querySelector(`#${conatinerId} [data-index="[${[index[0], index[1]]}]`);
+        const domTile = document.querySelector(`#${this.conatinerId} [data-index="[${[index[0], index[1]]}]`);
 
 
         if (value === 'hit'){
@@ -38,11 +39,11 @@ class DomBoard{
         }
     }
     
-    renderShip(conatinerId){
+    renderShip(){
         const indexes = this.board.shipIndexes.at(-1);
 
         for (let index of indexes){
-            const  domTile = document.querySelector(`#${conatinerId} [data-index="[${index[0]},${index[1]}]"]`);
+            const  domTile = document.querySelector(`#${this.conatinerId} [data-index="[${index[0]},${index[1]}]"]`);
 
             domTile.textContent = 'ship';
         }
