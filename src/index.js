@@ -2,7 +2,7 @@ import "./style.css";
 
 import { Player } from "./player";
 
-// 1. setup:
+//setup
 const player = new Player('human', 'current-board');
 const computer = new Player('computer', 'opponent-board');
 
@@ -12,7 +12,7 @@ computer.domBoard.initRender();
 const turnArr = [player, computer];
 let turn = 0;
 
-// placement for ships (Ineffective random, fix later)
+// placement
 while (turn < 2){
     let count = 0;
     let currentPlayer = turnArr[turn];
@@ -34,10 +34,10 @@ while (turn < 2){
 turn = 0;
 
 computer.gameboard.receiveAttack(1,1);
-computer.domBoard.renderAttack('opponent-board');
+computer.domBoard.renderAttack();
 
 computer.gameboard.receiveAttack(9,9);
-computer.domBoard.renderAttack('opponent-board')
+computer.domBoard.renderAttack()
 
 
 // create players
