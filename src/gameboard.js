@@ -13,7 +13,7 @@ class Gameboard{
 
         // for quicker board rendring, O(number of hit / ships index) vs O(n^2)
         this.shipIndexes = [];
-        this.hitIndexes = [];
+        this.hitIndexes = new Map();
 
     }
 
@@ -43,7 +43,7 @@ class Gameboard{
             this.board[y][x] = ship;
         });
 
-        this.shipIndexes.push(...indexes);
+        this.shipIndexes.push(indexes);
     }
 
     receiveAttack(x,y){
@@ -57,14 +57,14 @@ class Gameboard{
             if(indexValue.isSunk()) this.shipCount--;
 
             this.board[y][x] = 'X';
-            this.hitIndexes.push([y,x]);
+            this.hitIndexes.set([y,x], 'hit');
 
             return 'hit';
         }
         
         else{
             this.board[y][x] = 'O';
-            this.hitIndexes.push([y,x]);
+            this.hitIndexes.set([y,x], 'miss');
 
             return 'miss';
         } 
