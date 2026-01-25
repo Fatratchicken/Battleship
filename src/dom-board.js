@@ -48,6 +48,18 @@ class DomBoard{
             domTile.textContent = 'ship';
         }
     }
+
+    renderAllShips(){
+        const indexes = this.board.shipIndexes;
+
+        for (let ship of indexes){
+            for (let index of ship){
+                const domTile = document.querySelector(`#${this.conatinerId} [data-index="[${index[0]},${index[1]}]"]`);
+
+                domTile.style.backgroundColor = 'gray';
+            }
+        }
+    }
 }
 
 

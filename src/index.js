@@ -12,3 +12,6 @@ computer.domBoard.initRender();
 // placement
 player.gameboard.placeRandom();
 computer.gameboard.placeRandom();
+
+player.domBoard.renderAllShips();
+computer.domBoard.renderAllShips();

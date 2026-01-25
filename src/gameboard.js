@@ -52,8 +52,8 @@ class Gameboard{
         this.ships.forEach(ship => {
             const vertical = boolArr[Math.floor(Math.random() * 2)];
 
-            const max_x = this.width - ship.length;
-            const max_y = this.height - ship.length;
+            const max_x = (vertical) ? this.width - 1 : this.width - ship.length;
+            const max_y = (vertical) ? this.height - ship.length : this.height - 1;
 
             let placed = false;
 

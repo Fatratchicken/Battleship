@@ -14,9 +14,9 @@ div#opponent-board, div#current-board{
 .empty-tile{
   aspect-ratio: 1;
 
-  background-color: red;
+  background-color: blue;
 }
 
 .empty-tile:hover{
-  background-color: blue;
+  background-color: red;
 }
