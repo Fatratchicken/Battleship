@@ -41,13 +41,13 @@ describe('Class Gameboard', () => {
             test(`Gameboard.placeShip(9,9) => shipIndexes = [[9,9]]`, () => {
                 dummyBoard.placeShip(new Ship(1), 9, 9);
 
-                expect(dummyBoard.shipIndexes).toEqual([[9,9]])
+                expect(dummyBoard.shipIndexes).toEqual([[[9,9]]])
             })
 
             test('Gameboard.placeShip(0,0), (9,9) => [[0,0], [9,9]]', () => {
                 dummyBoard.placeShip(new Ship(1), 0,0);
 
-                expect(dummyBoard.shipIndexes).toEqual([[9,9], [0,0]]);
+                expect(dummyBoard.shipIndexes).toEqual([[[9,9]],[[0,0]]]);
             })
         })
 
@@ -57,13 +57,13 @@ describe('Class Gameboard', () => {
             test('Gameboard.receiveAttack(0,0) => hitIndexes = [[0,0]]', ( ) => {
                 dummyBoard.receiveAttack(0,0);
 
-                expect(dummyBoard.hitIndexes).toEqual([[0,0]]);
+                expect(...dummyBoard.hitIndexes).toEqual([[0,0], 'miss']);
             })
 
             test('Gameboard.receiveAttack(9,9), (0,0) => hitIndexes = [[0,0], [9,9]]', () => {
                 dummyBoard.receiveAttack(9,9);
-
-                expect(dummyBoard.hitIndexes).toEqual([[0,0], [9,9]]);
+                
+                expect([...dummyBoard.hitIndexes]).toEqual([[[0,0], 'miss'], [[9,9], 'miss']]);
             })
         })
     })
