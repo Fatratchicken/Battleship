@@ -14,6 +14,21 @@ class Gameboard{
         // for quicker board rendring, O(number of hit / ships index) vs O(n^2)
         this.shipIndexes = [];
         this.hitIndexes = new Map();
+        
+        // for random attacks:
+        this.openIndexes = this.matrixToArr(this.width, this.height);
+    }
+
+    matrixToArr(width, height){
+        let arr = [];
+
+        for (let y = 0; y < height; y++){
+            for(let x = 0; x < width; x++){
+                arr.push([y, x]);
+            }
+        }
+
+        return arr;
     }
 
     placeShip(ship, x, y, vertical){
@@ -77,8 +92,9 @@ class Gameboard{
         else if (typeof indexValue === 'object' && indexValue !== null){
             indexValue.hit();
 
-            if(indexValue.isSunk()) this.shipCount--;
-
+            if(indexValue.isSunk()) this.shipCount--; 
+            // return sunk here 
+            // check for win here:
             this.board[y][x] = 'X';
             this.hitIndexes.set([y,x], 'hit');
 
@@ -91,6 +107,13 @@ class Gameboard{
 
             return 'miss';
         } 
+    }
+
+    randomAttack(){
+        const randomIndex = Math.floor(Math.random() * (this.openIndexes.length));
+
+        const index = this.openIndexes.splice(randomIndex, 1)[0];
+        this.receiveAttack(index[1], index[0]);
     }
 
     allSunk(){

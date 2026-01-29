@@ -2,15 +2,15 @@ class DomBoard{
     constructor(gameboard, conatinerId){
         this.board = gameboard;
         this.conatinerId = conatinerId;
+        
+        this.htmlContainer = document.getElementById(this.conatinerId);
 
         this.width = this.board.width;
         this.height = this.board.height;
     }
 
     initRender(){
-        const htmlContainer = document.getElementById(this.conatinerId);
-
-        htmlContainer.style.gridTemplate = 'repeat(10, 1fr) / repeat(10, 1fr)';
+        this.htmlContainer.style.gridTemplate = 'repeat(10, 1fr) / repeat(10, 1fr)';
 
         for (let y = 0; y < this.height; y++){
             for (let x = 0; x < this.width; x++){
@@ -18,7 +18,7 @@ class DomBoard{
                 newTile.dataset.index = JSON.stringify([y,x]);
 
                 newTile.classList.add('empty-tile');
-                htmlContainer.appendChild(newTile);
+                this.htmlContainer.appendChild(newTile);
             }
         }
     }
@@ -31,12 +31,13 @@ class DomBoard{
 
 
         if (value === 'hit'){
-            domTile.textContent = 'hit';
+            domTile.style.backgroundColor = 'red';
         }
 
         else{
-            domTile.textContent = 'miss';
-        }
+            domTile.style.backgroundColor = 'green';
+        } 
+        // add another option for sunk and win
     }
     
     renderShip(){

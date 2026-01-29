@@ -17,6 +17,6 @@ div#opponent-board, div#current-board{
   background-color: blue;
 }
 
-.empty-tile:hover{
-  background-color: red;
+#opponent-board .empty-tile:hover{
+  background-color: purple;
 }
