@@ -34,6 +34,13 @@ div#interactive-board, div#static-board{
 
   background-color: gray;
 }
+
+.sunk{
+  aspect-ratio: 1;
+
+  background-color: black;
+}
+
 #interactive-board .empty-tile:hover{
   background-color: purple;
 }

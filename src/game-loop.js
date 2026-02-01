@@ -33,7 +33,16 @@ class Gameloop{
                 const result = this.otherPlayer.gameboard.receiveAttack(index[1], index[0]);
                 this.interactive_board.render(this.otherPlayer.gameboard, false);
 
-            }
+                if (result === 'loss'){
+                    alert('You Win');
+                }
+
+                const computer_result = this.currentPlayer.gameboard.randomAttack();
+                this.static_board.render(this.currentPlayer.gameboard);
+                if (computer_result === 'loss'){
+                    alert('You Lose');
+                }
+            }   
         })
 
     }

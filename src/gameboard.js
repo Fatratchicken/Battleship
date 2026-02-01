@@ -6,15 +6,11 @@ class Gameboard{
         this.width = CONFIG.BOARD_WIDTH;
         this.height = CONFIG.BOARD_HEIGHT;
 
-        this.ships = [5,4,3,3,2].map(length => new Ship(length));
-        this.shipCount = this.ships.length;
+        this.ships = new Map(CONFIG.SHIPS.map(length => [new Ship(length), []]));
+        this.shipCount = CONFIG.SHIPS.length;
 
         // for quick overlap checks O(1)
         this.board = Array.from(Array(this.height), () => Array(this.width).fill(null));
-
-        // for quicker board rendring, O(number of hit / ships index) vs O(n^2)
-        this.shipIndexes = [];
-        this.hitIndexes = new Map();
         
         // for random attacks:
         this.openIndexes = this.matrixToArr(this.width, this.height);
@@ -58,14 +54,14 @@ class Gameboard{
             this.board[y][x] = ship;
         });
 
-        this.shipIndexes.push(indexes);
+        this.ships.set(ship, indexes);
     }
     
-    // brute force 
+    // brut            return 'miss';e force 
     placeRandom(){
         const boolArr = [true, false];
 
-        this.ships.forEach(ship => {
+        for(let [ship, _] of this.ships){
             const vertical = boolArr[Math.floor(Math.random() * 2)];
 
             const max_x = (vertical) ? this.width - 1 : this.width - ship.length;
@@ -82,7 +78,7 @@ class Gameboard{
                     placed = true;
                 } catch (e) {e}
             }            
-        })
+        }
     }
 
     receiveAttack(x,y){
@@ -93,21 +89,22 @@ class Gameboard{
         else if (typeof indexValue === 'object' && indexValue !== null){
             indexValue.hit();
 
-            if(indexValue.isSunk()) this.shipCount--; 
-            // return sunk here 
-            
-            // check for win here:
-            this.board[y][x] = 'X';
-            this.hitIndexes.set([y,x], 'hit');
+            if(indexValue.isSunk()){
+                this.shipCount--; 
+                this.ships.get(indexValue).forEach(([y, x]) => this.board[y][x] = 'S');
 
-            return 'hit';
+                if (this.allSunk() === true){
+                    return 'loss';
+                }
+            }
+
+            else{
+                this.board[y][x] = 'X';
+            }
         }
         
         else{
             this.board[y][x] = 'O';
-            this.hitIndexes.set([y,x], 'miss');
-
-            return 'miss';
         } 
     }
 
@@ -115,7 +112,7 @@ class Gameboard{
         const randomIndex = Math.floor(Math.random() * (this.openIndexes.length));
 
         const index = this.openIndexes.splice(randomIndex, 1)[0];
-        this.receiveAttack(index[1], index[0]);
+        return this.receiveAttack(index[1], index[0]);
     }
 
     allSunk(){

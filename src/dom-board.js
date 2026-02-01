@@ -12,6 +12,7 @@ class DomBoard{
     render(gameboard, ships =  true){
         // delete previous display:
         this.htmlContainer.innerHTML = '';
+
         this.htmlContainer.style.gridTemplate = `repeat(${this.width}, 1fr) / repeat(${this.height}, 1fr)`;
 
         const matrix = gameboard.board;
@@ -32,6 +33,10 @@ class DomBoard{
 
                     case 'O':
                         newTile.classList.add('miss');
+                        break;
+
+                    case 'S':
+                        newTile.classList.add('sunk');
                         break;
 
                     default:
