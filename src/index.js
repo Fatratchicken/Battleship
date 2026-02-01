@@ -1,25 +1,18 @@
 import "./style.css";
 
 import { Player } from "./player";
-import { Gameloop } from "./dom-actions";
-
-// MAKE SURE TO CHANGE OPPONENT BOARD NAME TO INTERACTIVE BOARD, AND CURRENT-BOARD TO STATIC-BOARD
+import { Gameloop } from "./game-loop";
+import { DomBoard } from "./dom-board";
 
 //setup
-const player = new Player('human', 'current-board');
-const computer = new Player('computer', 'opponent-board');
+const player = new Player('human');
+const computer = new Player('computer');
 
-player.domBoard.initRender();
-computer.domBoard.initRender();
+const interactiveBoard = new DomBoard('interactive-board');
+const staticBoard = new DomBoard('static-board');
 
-// placement
-player.gameboard.placeRandom();
-computer.gameboard.placeRandom();
 
-player.domBoard.renderAllShips();
+const gameloop = new Gameloop(player, computer, interactiveBoard, staticBoard);
 
-// gameplay:
-const gameLoop = new Gameloop(player, computer, 'opponent-board');
-
-gameLoop.init();
-
+gameloop.setup();
+gameloop.run();

@@ -1,63 +1,46 @@
-class DomBoard{
-    constructor(gameboard, conatinerId){
-        this.board = gameboard;
-        this.conatinerId = conatinerId;
-        
-        this.htmlContainer = document.getElementById(this.conatinerId);
+import CONFIG from "./game-config";
 
-        this.width = this.board.width;
-        this.height = this.board.height;
+class DomBoard{
+    constructor(containerId){
+        this.width = CONFIG.BOARD_WIDTH;
+        this.height = CONFIG.BOARD_HEIGHT;
+
+        this.containerId = containerId;
+        this.htmlContainer = document.getElementById(this.containerId);
     }
 
-    initRender(){
-        this.htmlContainer.style.gridTemplate = 'repeat(10, 1fr) / repeat(10, 1fr)';
+    render(gameboard, ships =  true){
+        // delete previous display:
+        this.htmlContainer.innerHTML = '';
+        this.htmlContainer.style.gridTemplate = `repeat(${this.width}, 1fr) / repeat(${this.height}, 1fr)`;
+
+        const matrix = gameboard.board;
 
         for (let y = 0; y < this.height; y++){
             for (let x = 0; x < this.width; x++){
                 const newTile = document.createElement('div');
                 newTile.dataset.index = JSON.stringify([y,x]);
 
-                newTile.classList.add('empty-tile');
+                switch (matrix[y][x]) {
+                    case null:
+                        newTile.classList.add('empty-tile');
+                        break;
+                    
+                    case 'X':
+                        newTile.classList.add('hit')
+                        break;
+
+                    case 'O':
+                        newTile.classList.add('miss');
+                        break;
+
+                    default:
+                        if (ships) newTile.classList.add('ship');
+                        else newTile.classList.add('empty-tile');
+                        break;
+                }
+                
                 this.htmlContainer.appendChild(newTile);
-            }
-        }
-    }
-
-    renderAttack(){
-        const index = [...this.board.hitIndexes.keys()].at(-1);
-        const value = this.board.hitIndexes.get(index);
-
-        const domTile = document.querySelector(`#${this.conatinerId} [data-index="[${[index[0], index[1]]}]`);
-
-
-        if (value === 'hit'){
-            domTile.style.backgroundColor = 'red';
-        }
-
-        else{
-            domTile.style.backgroundColor = 'green';
-        } 
-        // add another option for sunk and win
-    }
-    
-    renderShip(){
-        const indexes = this.board.shipIndexes.at(-1);
-
-        for (let index of indexes){
-            const  domTile = document.querySelector(`#${this.conatinerId} [data-index="[${index[0]},${index[1]}]"]`);
-
-            domTile.textContent = 'ship';
-        }
-    }
-
-    renderAllShips(){
-        const indexes = this.board.shipIndexes;
-
-        for (let ship of indexes){
-            for (let index of ship){
-                const domTile = document.querySelector(`#${this.conatinerId} [data-index="[${index[0]},${index[1]}]"]`);
-
-                domTile.style.backgroundColor = 'gray';
             }
         }
     }

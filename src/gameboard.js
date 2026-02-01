@@ -1,9 +1,10 @@
+import CONFIG from "./game-config";
 import { Ship } from "./ship"
 
 class Gameboard{
     constructor(){
-        this.width = 10;
-        this.height = 10;
+        this.width = CONFIG.BOARD_WIDTH;
+        this.height = CONFIG.BOARD_HEIGHT;
 
         this.ships = [5,4,3,3,2].map(length => new Ship(length));
         this.shipCount = this.ships.length;
@@ -94,6 +95,7 @@ class Gameboard{
 
             if(indexValue.isSunk()) this.shipCount--; 
             // return sunk here 
+            
             // check for win here:
             this.board[y][x] = 'X';
             this.hitIndexes.set([y,x], 'hit');

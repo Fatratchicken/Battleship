@@ -5,7 +5,7 @@ section#board-display{
   gap: 50px;
 }
 
-div#opponent-board, div#current-board{
+div#interactive-board, div#static-board{
   display: grid;
   width: 50vw;
   gap: 5px;
@@ -17,6 +17,23 @@ div#opponent-board, div#current-board{
   background-color: blue;
 }
 
-#opponent-board .empty-tile:hover{
+.hit{
+  aspect-ratio: 1;
+
+  background-color: red;
+}
+
+.miss{
+  aspect-ratio: 1;
+
+  background-color: green;
+}
+
+.ship{
+  aspect-ratio: 1;
+
+  background-color: gray;
+}
+#interactive-board .empty-tile:hover{
   background-color: purple;
 }
