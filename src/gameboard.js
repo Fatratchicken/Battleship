@@ -57,7 +57,7 @@ class Gameboard{
         this.ships.set(ship, indexes);
     }
     
-    // brut            return 'miss';e force 
+    // brute force
     placeRandom(){
         const boolArr = [true, false];
 

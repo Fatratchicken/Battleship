@@ -1,14 +1,22 @@
-section#board-display{
+body{
   display: flex;
   align-items: center;
+
+  flex-direction: column;
+}
+
+section#board-display{
+  display: flex;
+
+  width: 90vw;
 
   gap: 50px;
 }
 
 div#interactive-board, div#static-board{
   display: grid;
-  width: 50vw;
   gap: 5px;
+  flex: 1;
 }
 
 .empty-tile{
@@ -39,6 +47,11 @@ div#interactive-board, div#static-board{
   aspect-ratio: 1;
 
   background-color: black;
+}
+
+#text-bar{
+  text-align: center;
+  font-size: 36px;
 }
 
 #interactive-board .empty-tile:hover{
