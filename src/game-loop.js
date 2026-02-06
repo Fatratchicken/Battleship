@@ -1,4 +1,3 @@
-// rename to game-round
 class Gameloop{
     constructor(player_1, player_2, interactive_board, static_board, textBar){
         this.player_1 = player_1;
@@ -30,20 +29,12 @@ class Gameloop{
     }
 
     run(){
-        if (this.player_1.type === 'computer' && this.player_2.type === 'computer'){
-            this.#computerGame();
-        }
-
-        else{
-            this.#eventGame();
-        }
-    }
-
-    #computerGame(){
-        console.log('pc game');
+        this.#eventGame();
     }
 
     handleEvent(event){
+        if (this.currentPlayer.type !== 'human') return;
+        
         const target = event.target;
 
         if (target.classList.contains('empty-tile')){
@@ -83,17 +74,20 @@ class Gameloop{
         return result;
     }
 
-    #automaticTurn(){
-        const result = this.otherPlayer.gameboard.randomAttack();
-        this.static_board.render(this.otherPlayer.gameboard);
+    #automaticTurn(){      
+        setTimeout(() => {
+            const result = this.otherPlayer.gameboard.randomAttack();
+            this.static_board.render(this.otherPlayer.gameboard);
 
-        const win = this.#checkWin(result);
+            const win = this.#checkWin(result);
 
-        if (win) return true;
+            if (win) return true;
 
-        this.#swapTurn();
+            this.#swapTurn();
 
-        return result;
+            return result;
+        }, 1000)        
+
     }
 
     #swapTurn(){

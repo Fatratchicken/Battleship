@@ -13,10 +13,10 @@ class Gameboard{
         this.board = Array.from(Array(this.height), () => Array(this.width).fill(null));
         
         // for random attacks:
-        this.openIndexes = this.matrixToArr(this.width, this.height);
+        this.openIndexes = this.#matrixToArr(this.width, this.height);
     }
 
-    matrixToArr(width, height){
+    #matrixToArr(width, height){
         let arr = [];
 
         for (let y = 0; y < height; y++){
@@ -108,6 +108,7 @@ class Gameboard{
         } 
     }
 
+    // smart attack AI:
     randomAttack(){
         const randomIndex = Math.floor(Math.random() * (this.openIndexes.length));
 
