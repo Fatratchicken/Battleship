@@ -1,5 +1,5 @@
 class Gameloop{
-    constructor(player_1, player_2, interactive_board, static_board, textBar){
+    constructor(player_1, player_2, interactive_board, static_board, textBar, swapScreen){
         this.player_1 = player_1;
         this.player_2 = player_2;
 
@@ -18,6 +18,9 @@ class Gameloop{
         this.interactive_board = interactive_board;
 
         this.textBar = textBar;
+        this.swapScreen = swapScreen;
+
+        this.pause = false;
     }
 
     setup(){
@@ -33,7 +36,7 @@ class Gameloop{
     }
 
     handleEvent(event){
-        if (this.currentPlayer.type !== 'human') return;
+        if (this.pause) return;
         
         const target = event.target;
 
@@ -45,7 +48,17 @@ class Gameloop{
             if (win) return;
 
             if (this.currentPlayer.type === 'computer') this.#automaticTurn();
-            else this.#renderBoards();
+
+            else{
+                this.pause = true;
+
+                setTimeout(() => {
+                    this.#renderBoards();
+                    this.swapScreen.render(this.currentPlayerText);
+                    this.pause = false;
+                }, 1000);
+
+            }
         }      
     }
 
@@ -75,6 +88,8 @@ class Gameloop{
     }
 
     #automaticTurn(){      
+        this.pause = true;
+
         setTimeout(() => {
             const result = this.otherPlayer.gameboard.randomAttack();
             this.static_board.render(this.otherPlayer.gameboard);
@@ -85,9 +100,16 @@ class Gameloop{
 
             this.#swapTurn();
 
-            return result;
-        }, 1000)        
+            if (this.currentPlayer.type === 'computer'){
+                this.#renderBoards();
+                this.#automaticTurn();
+            }
 
+            this.pause = false;
+
+
+            return result;
+        }, 1000);
     }
 
     #swapTurn(){
@@ -98,7 +120,7 @@ class Gameloop{
 
         this.currentPlayerText = this.playerTextArr[this.turn];
 
-        this.textBar.renderPlayer(this.currentPlayerText)
+        this.textBar.renderPlayer(this.currentPlayerText);
     }
 
     #checkWin(result){
