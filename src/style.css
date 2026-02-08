@@ -19,33 +19,27 @@ div#interactive-board, div#static-board{
   flex: 1;
 }
 
-.empty-tile{
+.empty-tile, .hit, .miss, .ship, .sunk{
   aspect-ratio: 1;
+}
 
+.empty-tile{
   background-color: blue;
 }
 
 .hit{
-  aspect-ratio: 1;
-
   background-color: red;
 }
 
 .miss{
-  aspect-ratio: 1;
-
   background-color: green;
 }
 
 .ship{
-  aspect-ratio: 1;
-
   background-color: gray;
 }
 
 .sunk{
-  aspect-ratio: 1;
-
   background-color: black;
 }
 
