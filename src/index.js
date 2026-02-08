@@ -7,8 +7,8 @@ import { TextBar } from "./text-bar";
 import { SwapScreen } from "./swapScreen";
 
 //setup
-const player = new Player('human');
-const computer = new Player('human');
+const player = new Player('computer');
+const computer = new Player('computer');
 
 const interactiveBoard = new DomBoard('interactive-board');
 const staticBoard = new DomBoard('static-board');

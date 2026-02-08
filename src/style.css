@@ -1,3 +1,13 @@
+:root{
+  --empty-tile-color: blue;
+  --hit-tile-color: red;
+  --miss-tile-color: green;
+  --ship-tile-color: gray;
+  --sunk-tile-color: black;
+
+  --hover-tile-color: purple;
+}
+
 body{
   display: flex;
   align-items: center;
@@ -19,37 +29,37 @@ div#interactive-board, div#static-board{
   flex: 1;
 }
 
+#interactive-board .empty-tile:hover{
+  background-color: var(--hover-tile-color);
+}
+
 .empty-tile, .hit, .miss, .ship, .sunk{
   aspect-ratio: 1;
 }
 
 .empty-tile{
-  background-color: blue;
+  background-color: var(--empty-tile-color);
 }
 
 .hit{
-  background-color: red;
+  background-color: var(--hit-tile-color);
 }
 
 .miss{
-  background-color: green;
+  background-color: var(--miss-tile-color);
 }
 
 .ship{
-  background-color: gray;
+  background-color: var(--ship-tile-color);
 }
 
 .sunk{
-  background-color: black;
+  background-color: var(--sunk-tile-color);
 }
 
 #text-bar{
   text-align: center;
   font-size: 36px;
-}
-
-#interactive-board .empty-tile:hover{
-  background-color: purple;
 }
 
 dialog{
