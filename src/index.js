@@ -6,9 +6,11 @@ import { DomBoard } from "./dom-board";
 import { TextBar } from "./text-bar";
 import { SwapScreen } from "./swapScreen";
 
+import CONFIG from "./game-config";
+
 //setup
-const player = new Player('computer');
-const computer = new Player('computer');
+const player = new Player(CONFIG.PLAYER_1);
+const computer = new Player(CONFIG.PLAYER_2);
 
 const interactiveBoard = new DomBoard('interactive-board');
 const staticBoard = new DomBoard('static-board');
