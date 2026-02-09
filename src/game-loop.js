@@ -1,3 +1,5 @@
+import actions from "./computer-actions";
+
 class Gameloop{
     constructor(player_1, player_2, interactive_board, static_board, textBar, swapScreen){
         this.player_1 = player_1;
@@ -20,20 +22,18 @@ class Gameloop{
         this.textBar = textBar;
         this.swapScreen = swapScreen;
 
+        // to halt user access to event listener non permanent:
         this.pause = false;
     }
 
     setup(){
-        this.player_1.gameboard.placeRandom();
-        this.player_2.gameboard.placeRandom();
+        actions.randomPlace(this.player_1.gameboard);
+        actions.randomPlace(this.player_2.gameboard);
 
         this.#renderBoards();
         this.textBar.renderPlayer(this.currentPlayerText);
     }
 
-    run(){
-        this.#eventGame();
-    }
 
     handleEvent(event){
         if (this.pause) return;
@@ -63,7 +63,7 @@ class Gameloop{
     }
 
 
-    #eventGame(){
+    run(){
         if (this.currentPlayer.type === 'computer') this.#automaticTurn();
 
         this.interactive_board.htmlContainer.addEventListener('click', this);
@@ -91,7 +91,7 @@ class Gameloop{
         this.pause = true;
 
         setTimeout(() => {
-            const result = this.otherPlayer.gameboard.randomAttack();
+            const result = this.currentPlayer.smartAttack.attack(this.otherPlayer.gameboard);
             this.static_board.render(this.otherPlayer.gameboard);
 
             const win = this.#checkWin(result);
@@ -105,11 +105,10 @@ class Gameloop{
                 this.#automaticTurn();
             }
 
-            this.pause = false;
-
+            else this.pause = false;
 
             return result;
-        }, 1000);
+        }, 500);
     }
 
     #swapTurn(){

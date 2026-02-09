@@ -9,24 +9,9 @@ class Gameboard{
         this.ships = new Map(CONFIG.SHIPS.map(length => [new Ship(length), []]));
         this.shipCount = CONFIG.SHIPS.length;
 
-        // for quick overlap checks O(1)
-        this.board = Array.from(Array(this.height), () => Array(this.width).fill(null));
-        
-        // for random attacks:
-        this.openIndexes = this.#matrixToArr(this.width, this.height);
+        this.board = Array.from(Array(this.height), () => Array(this.width).fill(null)); 
     }
 
-    #matrixToArr(width, height){
-        let arr = [];
-
-        for (let y = 0; y < height; y++){
-            for(let x = 0; x < width; x++){
-                arr.push([y, x]);
-            }
-        }
-
-        return arr;
-    }
 
     placeShip(ship, x, y, vertical){
         const length = ship.length;
@@ -56,30 +41,6 @@ class Gameboard{
 
         this.ships.set(ship, indexes);
     }
-    
-    // brute force
-    placeRandom(){
-        const boolArr = [true, false];
-
-        for(let [ship, _] of this.ships){
-            const vertical = boolArr[Math.floor(Math.random() * 2)];
-
-            const max_x = (vertical) ? this.width - 1 : this.width - ship.length;
-            const max_y = (vertical) ? this.height - ship.length : this.height - 1;
-
-            let placed = false;
-
-            while (!placed){
-                const x = Math.floor(Math.random() * (max_x + 1));
-                const y = Math.floor(Math.random() * (max_y + 1));
-
-                try {
-                    this.placeShip(ship, x, y, vertical);
-                    placed = true;
-                } catch (e) {e}
-            }            
-        }
-    }
 
     receiveAttack(x,y){
         const indexValue = this.board[y][x];
@@ -106,14 +67,6 @@ class Gameboard{
         else{
             this.board[y][x] = 'O';
         } 
-    }
-
-    // smart attack AI:
-    randomAttack(){
-        const randomIndex = Math.floor(Math.random() * (this.openIndexes.length));
-
-        const index = this.openIndexes.splice(randomIndex, 1)[0];
-        return this.receiveAttack(index[1], index[0]);
     }
 
     allSunk(){
