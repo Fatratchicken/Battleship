@@ -3,7 +3,7 @@ const CONFIG = {
     BOARD_HEIGHT: 10,
     SHIPS: [5,4,3,3,2],
     PLAYER_1: 'human',
-    PLAYER_2: 'computer'
+    PLAYER_2: 'human'
 }
 
 export default CONFIG;

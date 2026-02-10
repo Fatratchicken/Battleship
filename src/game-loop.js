@@ -45,7 +45,7 @@ class Gameloop{
 
             const win = this.#domTurn(index);
 
-            if (win) return;
+            if (win === true) return;
 
             if (this.currentPlayer.type === 'computer') this.#automaticTurn();
 
@@ -108,7 +108,7 @@ class Gameloop{
             else this.pause = false;
 
             return result;
-        }, 500);
+        }, 300);
     }
 
     #swapTurn(){

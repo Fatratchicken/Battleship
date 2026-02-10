@@ -43,9 +43,11 @@ class Gameboard{
     }
 
     receiveAttack(x,y){
+        if (x > CONFIG.BOARD_WIDTH - 1 || y > CONFIG.BOARD_HEIGHT - 1) throw new Error('index out of range');
+        
         const indexValue = this.board[y][x];
 
-        if (indexValue === 'X' || indexValue === 'O') throw new Error('index previously chosen');
+        if (indexValue === 'X' || indexValue === 'O' || indexValue === 'S') throw new Error('index previously chosen');
 
         else if (typeof indexValue === 'object' && indexValue !== null){
             indexValue.hit();
@@ -62,10 +64,14 @@ class Gameboard{
             else{
                 this.board[y][x] = 'X';
             }
+
+            return 'hit';
         }
         
         else{
             this.board[y][x] = 'O';
+
+            return 'miss';
         } 
     }
 
